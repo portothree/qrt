@@ -29,13 +29,13 @@ In other words, you can pass wind directions only, wind directions and speed, an
 
 ```js
 // Wind directions only
-avgWind([360, 45, 90]); // => 45
+windDirectionMean([360, 45, 90]); // => 45
 
 // Wind directions and speeds
-avgWind([360, 45, 90], [1.48, 1.78, 3.44]); // => 59.76
+windDirectionMean([360, 45, 90], [1.48, 1.78, 3.44]); // => 59.76
 
 // Wind directions and speeds in '2d' format
-avgWind([
+windDirectionMean([
 	[360, 1.48],
 	[45, 1.78],
 	[90, 3.44],
