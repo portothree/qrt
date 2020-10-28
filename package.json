@@ -11,8 +11,14 @@
 		"node": ">=10"
 	},
 	"scripts": {},
-	"files": ["index.js"],
-	"keywords": ["air", "quality", "aqi"],
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"air",
+		"quality",
+		"aqi"
+	],
 	"dependencies": {},
 	"devDependencies": {}
 }
