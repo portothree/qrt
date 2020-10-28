@@ -1,5 +1,5 @@
 'use strict';
-const { deg2rad, rad2deg } = require('./utils');
+const { deg2rad, rad2deg } = require('./utils.js');
 
 module.exports = {
 	/**
