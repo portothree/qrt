@@ -21,11 +21,11 @@ windDirectionMean([360, 45, 90]);
 
 ### windDirectionMean(...args)
 
-#### args
+-   args
 
-Type: `Array<number>`, `Array<number>, Array<number>` or `<Array<Array<number>>>`
-
-In other words, you can pass wind directions only, wind directions and speed, and both in a '2d' array
+    -   Wind direction only: `Array<number>`
+    -   Wind direction and speed: `Array<number>, Array<number>`
+    -   Wind direction and speed in a '2d' array: `<Array<Array<number>>>`
 
 ```js
 // Wind directions only
@@ -44,30 +44,11 @@ windDirectionMean([
 
 ### airQualityIndex(PM10, PM25, NO2, O3, SO2)
 
-#### PM10
-
-Type: `Number`
-Average hourly
-
-#### PM25
-
-Type: `Number`
-Average hourly
-
-#### NO2
-
-Type: `Number`
-Average hourly
-
-#### O3
-
-Type: `Number`
-Average hourly
-
-#### SO2
-
-Type: `Number`
-Average hourly
+-   PM10 - Average hourly as `Number`
+-   PM25 - Average hourly as `Number`
+-   NO2 - Average hourly as `Number`
+-   O3 - Average hourly as `Number`
+-   SO2 - Average hourly as `Number`
 
 ```js
 airQualityIndex(5, 0, 0, 0, 0); // => { AQI_POL: 'PM10', AQI_GLOBAL: 5 }
