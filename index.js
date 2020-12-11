@@ -59,4 +59,79 @@ module.exports = {
 
 		return (rad2deg(Math.atan2(sinSum, cosSum)) + 360) % 360;
 	},
+
+	/**
+	 * Air Quality Index
+	 */
+	airQualityIndex(med_PM10, med_PM25, med_NO2, med_O3, med_SO2) {
+		function calcSensorAqi(aqiRules, sensorValue) {
+			return Object.entries(aqiRules).reduce(
+				(accumulator, [aqi, range]) => {
+					const [min, max] = range;
+
+					if (sensorValue > min && sensorValue < max) {
+						accumulator = Number(aqi);
+					}
+
+					return accumulator;
+				},
+				5
+			);
+		}
+
+		// AQI: [min, max]
+		const rules = {
+			PM10: {
+				5: [0, 21],
+				4: [21, 36],
+				3: [36, 51],
+				2: [51, 101],
+				1: [101, Infinity],
+			},
+			PM25: {
+				5: [0, 11],
+				4: [11, 21],
+				3: [21, 26],
+				2: [26, 51],
+				1: [51, Infinity],
+			},
+			NO2: {
+				5: [0, 40],
+				4: [40, 101],
+				3: [101, 201],
+				2: [201, 401],
+				1: [401, Infinity],
+			},
+			SO2: {
+				5: [0, 100],
+				4: [101, 201],
+				3: [201, 351],
+				2: [351, 501],
+				1: [501, Infinity],
+			},
+		};
+
+		const aqi = {
+			PM10: calcSensorAqi(rules.PM10, med_PM10),
+			PM25: calcSensorAqi(rules.PM25, med_PM25),
+			NO2: calcSensorAqi(rules.NO2, med_NO2),
+			SO2: calcSensorAqi(rules.SO2, med_SO2),
+		};
+
+		const [AQI_POL, AQI_GLOBAL] = Object.entries(aqi).reduce(
+			(accumulator, current) => {
+				const [accSensor, accValue] = accumulator;
+				const [currSensor, currValue] = current;
+
+				if (accValue > currValue) {
+					accumulator = current;
+				}
+
+				return accumulator;
+			},
+			['PM10', aqi.PM10]
+		);
+
+		return { AQI_POL, AQI_GLOBAL };
+	},
 };
