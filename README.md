@@ -41,3 +41,34 @@ windDirectionMean([
 	[90, 3.44],
 ]); // => 59.76
 ```
+
+### airQualityIndex(PM10, PM25, NO2, O3, SO2)
+
+#### PM10
+
+Type: `Number`
+Average hourly
+
+#### PM25
+
+Type: `Number`
+Average hourly
+
+#### NO2
+
+Type: `Number`
+Average hourly
+
+#### O3
+
+Type: `Number`
+Average hourly
+
+#### SO2
+
+Type: `Number`
+Average hourly
+
+```js
+airQualityIndex(5, 0, 0, 0, 0); // => { AQI_POL: 'PM10', AQI_GLOBAL: 5 }
+```
