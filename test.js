@@ -1,6 +1,7 @@
-const { windDirectionMean } = require('./index');
+const cases = require('jest-in-case');
+const { windDirectionMean, airQualityIndex } = require('./index');
 
-describe('Air Quality Toolki', () => {
+describe('Air Quality Toolkit', () => {
 	describe('Wind Direction Mean', () => {
 		test('Throws if non array is passed as input', () => {
 			expect(() => windDirectionMean('random')).toThrow();
@@ -23,4 +24,26 @@ describe('Air Quality Toolki', () => {
 			).toEqual(59.76384812527999);
 		});
 	});
+
+	cases(
+		'Air Quality Index',
+		opts => {
+			const [pollutant, aqi] = opts.name.split(':');
+			const [PM10, PM25, NO2, O3, SO2] = opts.values;
+			const result = airQualityIndex(PM10, PM25, NO2, O3, SO2);
+
+			expect(result).toEqual({ pollutant, aqi: Number(aqi) });
+		},
+		[
+			{ name: 'PM10:5', values: [1, 0, 0, 0, 0] },
+			{ name: 'PM10:5', values: [20, 0, 0, 0, 0] },
+			{ name: 'PM10:4', values: [22, 0, 0, 0, 0] },
+			{ name: 'PM10:4', values: [35, 0, 0, 0, 0] },
+			{ name: 'PM10:3', values: [37, 0, 0, 0, 0] },
+			{ name: 'PM10:3', values: [50, 0, 0, 0, 0] },
+			{ name: 'PM10:2', values: [52, 0, 0, 0, 0] },
+			{ name: 'PM10:2', values: [100, 0, 0, 0, 0] },
+			{ name: 'PM10:1', values: [102, 0, 0, 0, 0] },
+		]
+	);
 });
