@@ -61,5 +61,5 @@ Calculates noise using logarithic average of the values
 -   samples - Array of noise measurements, `Array<number>`
 
 ```js
-noiseMean([70, 70, 70]); // => 161.1809565095832
+noiseMean([70, 70, 70]); // => 70 
 ```
