@@ -145,6 +145,6 @@ module.exports = {
 
 		// Divide the total by the number of samples
 		// base 10 log this number and multiply it by 10
-		return 10 * Math.log(total / samples.length);
+		return 10 * Math.log10(total / samples.length);
 	},
 };
