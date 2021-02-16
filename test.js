@@ -78,7 +78,7 @@ describe('Air Quality Toolkit', () => {
 	);
 
 	describe('Noise Mean', () => {
-		test.only('Average noise measurements', () => {
+		test('Average noise measurements', () => {
 			const result = noiseMean([70, 70, 70, 70]);
 
 			expect(result).toEqual(161.1809565095832);
