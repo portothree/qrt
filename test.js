@@ -1,5 +1,5 @@
 const cases = require('jest-in-case');
-const { windDirectionMean, airQualityIndex } = require('./index');
+const { windDirectionMean, airQualityIndex, noiseMean } = require('./index');
 
 describe('Air Quality Toolkit', () => {
 	describe('Wind Direction Mean', () => {
@@ -76,4 +76,12 @@ describe('Air Quality Toolkit', () => {
 			{ name: 'SO2:1', values: [0, 0, 0, 0, 502] },
 		]
 	);
+
+	describe('Noise Mean', () => {
+		test.only('Average noise measurements', () => {
+			const result = noiseMean([70, 70, 70, 70]);
+
+			expect(result).toEqual(161.1809565095832);
+		});
+	});
 });

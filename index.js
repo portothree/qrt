@@ -134,4 +134,17 @@ module.exports = {
 
 		return { AQI_POL, AQI_GLOBAL };
 	},
+
+	noiseMean(samples) {
+		// Create a new array dividing each value by 10
+		// and anti-log the value 10^x and them add together all the values
+		const total = samples
+			.map(sample => sample / 10)
+			.map(sample => Math.pow(10, sample))
+			.reduce((acc, curr) => (acc += curr), 0);
+
+		// Divide the total by the number of samples
+		// base 10 log this number and multiply it by 10
+		return 10 * Math.log(total / samples.length);
+	},
 };
