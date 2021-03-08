@@ -1,5 +1,6 @@
 'use strict';
 const { deg2rad, rad2deg } = require('./utils.js');
+const helpers = require('./helpers');
 
 module.exports = {
 	/**
@@ -146,5 +147,29 @@ module.exports = {
 		// Divide the total by the number of samples
 		// base 10 log this number and multiply it by 10
 		return 10 * Math.log10(total / samples.length);
+	},
+
+	parseRaw(raw) {
+		if (typeof raw !== 'string') {
+			throw new Error('Raw must be an string');
+		}
+
+		const {
+			dataString,
+			version,
+			firmwareVersion,
+			status,
+		} = helpers.device.info;
+
+		const splittedRaw = raw.split(',');
+		const pipes = splittedRaw[28].split('|');
+
+		return {
+			DUI: dataString === 'MQA' ? splittedRaw[3] : splittedRaw[4],
+			dataString: splittedRaw[dataString.pos],
+			version: splittedRaw[version.pos],
+			firmwareVersion: splittedRaw[firmwareVersion.pos],
+			status: splittedRaw[status.pos],
+		};
 	},
 };

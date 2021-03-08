@@ -1,5 +1,10 @@
 const cases = require('jest-in-case');
-const { windDirectionMean, airQualityIndex, noiseMean } = require('./index');
+const {
+	windDirectionMean,
+	airQualityIndex,
+	noiseMean,
+	parseRaw,
+} = require('./index');
 
 describe('Air Quality Toolkit', () => {
 	describe('Wind Direction Mean', () => {
@@ -83,5 +88,42 @@ describe('Air Quality Toolkit', () => {
 
 			expect(result).toEqual(70);
 		});
+	});
+
+	describe('Parse Raw', () => {
+		cases(
+			'Parser must return object containing metadata info',
+			opts => {
+				const result = parseRaw(opts.raw);
+
+				expect(result).toEqual(opts.parsed);
+			},
+			[
+				{
+					name: '000000000001',
+					raw:
+						'QART,v2018.1,LE1,1.0.100,000000000001,OK,444,364,264,245,326,326,250,261,207,172,694,136,0,694,136,5,16.52,19.21,9.38,11.90,13,,150|3.01|15/01/2020 18:50:08|N| -61 dBm|867858033064406|0|0|0|0|0|0|0|0.',
+					parsed: {
+						DUI: '000000000001',
+						dataString: 'v2018.1',
+						firmwareVersion: '1.0.100',
+						status: 'OK',
+						version: 'LE1',
+					},
+				},
+				{
+					name: '202007260067',
+					raw:
+						'QART,v2018.1,LE1,1.0.100,202007260067,OK,430,371,270,241,322,321,235,259,362,355,528,157,0,528,157,6,16.94,22.00,31.02,51.80,16,555,132|4.02|07/02/2021 13:07:35|N| -51 dBm|865210039116800|0|0|154|509|10055|0|0|2001|||52966915|3876|0|.',
+					parsed: {
+						DUI: '202007260067',
+						dataString: 'v2018.1',
+						firmwareVersion: '1.0.100',
+						status: 'OK',
+						version: 'LE1',
+					},
+				},
+			]
+		);
 	});
 });
