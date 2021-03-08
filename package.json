@@ -14,8 +14,16 @@
 		"test": "jest",
 		"test:watch": "jest --watch"
 	},
-	"files": ["index.js", "utils.js", "helpers.js"],
-	"keywords": ["air", "quality", "aqi"],
+	"files": [
+		"index.js",
+		"utils.js",
+		"helpers.js"
+	],
+	"keywords": [
+		"air",
+		"quality",
+		"aqi"
+	],
 	"dependencies": {},
 	"devDependencies": {
 		"jest": "^26.6.1",
