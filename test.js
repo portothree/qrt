@@ -4,6 +4,7 @@ const {
 	airQualityIndex,
 	noiseMean,
 	parseRaw,
+	parseAvgKey,
 } = require('./index');
 
 describe('Air Quality Toolkit', () => {
@@ -125,5 +126,13 @@ describe('Air Quality Toolkit', () => {
 				},
 			]
 		);
+	});
+
+	describe('Parse avg key', () => {
+		test.only('Avg Key Parser must return a ISO date', () => {
+			const result = parseAvgKey('202007260067!2021!3!11', '1d');
+
+			expect(result).toBe('2021-03-11T00:00:00.000Z');
+		});
 	});
 });

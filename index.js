@@ -1,6 +1,7 @@
 'use strict';
 const { deg2rad, rad2deg } = require('./utils.js');
 const helpers = require('./helpers');
+const dayjs = require('dayjs');
 
 module.exports = {
 	/**
@@ -171,5 +172,66 @@ module.exports = {
 			firmwareVersion: splittedRaw[firmwareVersion.pos],
 			status: splittedRaw[status.pos],
 		};
+	},
+
+	parseAvgKey(key, avgType) {
+		if (typeof key !== 'string') {
+			throw new Error('Key must be an string');
+		}
+
+		const avgTypeConfigs = {
+			'10mn': {
+				length: 6,
+				positions: {
+					DUI: 0,
+					year: 1,
+					month: 2,
+					day: 3,
+					hour: 4,
+					minute: 5,
+				},
+			},
+			'1h': {
+				length: 5,
+				positions: {
+					DUI: 0,
+					year: 1,
+					month: 2,
+					day: 3,
+					hour: 4,
+				},
+			},
+			'1d': {
+				length: 4,
+				positions: {
+					DUI: 0,
+					year: 1,
+					month: 2,
+					day: 3,
+				},
+			},
+		};
+
+		const avgConfig = avgTypeConfigs[avgType];
+
+		if (!avgConfig) {
+			throw new Error('Invalid avg type');
+		}
+
+		const keyParts = key.split('!');
+
+		if (!keyParts.length || avgConfig.length !== keyParts.length) {
+			throw new Error('Invalid key format');
+		}
+
+		const positions = avgConfig.positions;
+
+		return dayjs(0)
+			.year(keyParts[positions.year])
+			.month(keyParts[positions.month] - 1)
+			.day(keyParts[positions.day])
+			.hour(keyParts[positions.hour] || 0)
+			.minute(keyParts[positions.minute] || 0)
+			.toISOString();
 	},
 };
